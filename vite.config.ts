@@ -1,35 +1,22 @@
-import { defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react";
-import path from "path";
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  // Load env file based on `mode` in the current working directory.
+  // The third parameter '' ensures we load all env vars, not just VITE_*
+  const env = loadEnv(mode, '.', '');
 
   return {
-    // 👇 IMPORTANT: tell Vite that project root IS the repo root
-    root: ".",
-
     plugins: [react()],
-
-    server: {
-      port: 3000,
-      host: "0.0.0.0",
-    },
-
-    build: {
-      outDir: "dist",
-      emptyOutDir: true,
-    },
-
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "."),
-      },
-    },
-
     define: {
-      "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
-      "process.env.GEMINI_API_KEY": JSON.stringify(env.GEMINI_API_KEY),
+      // 1. Expose the API_KEY to the client bundle
+      'process.env.API_KEY': JSON.stringify(env.API_KEY || env.VITE_API_KEY || ''),
+      
+      // 2. Prevent "ReferenceError: process is not defined" by defining it as an empty object
+      'process.env': {},
     },
+    server: {
+      host: '0.0.0.0',
+    }
   };
 });
