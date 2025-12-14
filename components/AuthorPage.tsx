@@ -25,49 +25,49 @@ export const AuthorPage: React.FC<AuthorPageProps> = ({ language }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-serif font-bold text-stone-800 mb-4">
+        <h2 className="text-4xl font-serif font-bold text-stone-800 dark:text-stone-100 mb-4">
           <FormattedText text={content.title} />
         </h2>
-        <div className="text-xl text-amber-600 font-medium">
+        <div className="text-xl text-amber-600 dark:text-amber-500 font-medium">
           <FormattedText text={content.subtitle} />
         </div>
       </div>
 
-      <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200">
+      <div className="bg-stone-50 dark:bg-stone-900 p-8 rounded-2xl border border-stone-200 dark:border-stone-800">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-3 bg-stone-200 rounded-full text-stone-600">
+          <div className="p-3 bg-stone-200 dark:bg-stone-800 rounded-full text-stone-600 dark:text-stone-400">
             <Heart size={24} />
           </div>
-          <h3 className="text-2xl font-serif font-bold text-stone-800">
+          <h3 className="text-2xl font-serif font-bold text-stone-800 dark:text-stone-100">
             <FormattedText text={content.title} />
           </h3>
         </div>
         
         <div className="grid md:grid-cols-2 gap-8">
           <div>
-            <div className="text-stone-600 leading-relaxed mb-6">
+            <div className="text-stone-600 dark:text-stone-300 leading-relaxed mb-6">
               <FormattedText text={content.authorText} />
             </div>
-            <h4 className="font-bold text-stone-700 mb-2 text-sm uppercase tracking-wide">{content.contact}</h4>
+            <h4 className="font-bold text-stone-700 dark:text-stone-300 mb-2 text-sm uppercase tracking-wide">{content.contact}</h4>
             <div className="flex flex-wrap gap-3">
-              <a href="#" className="flex items-center gap-2 px-3 py-2 bg-white border border-stone-300 rounded-lg text-stone-600 hover:text-stone-900 hover:border-stone-400 transition-colors text-sm">
+              <a href="#" className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:border-stone-400 dark:hover:border-stone-600 transition-colors text-sm">
                 <Github size={16} />
                 <span>GitHub</span>
               </a>
-              <a href="#" className="flex items-center gap-2 px-3 py-2 bg-white border border-stone-300 rounded-lg text-stone-600 hover:text-stone-900 hover:border-stone-400 transition-colors text-sm">
+              <a href="#" className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:border-stone-400 dark:hover:border-stone-600 transition-colors text-sm">
                 <Globe size={16} />
                 <span>Website</span>
               </a>
-              <a href="#" className="flex items-center gap-2 px-3 py-2 bg-white border border-stone-300 rounded-lg text-stone-600 hover:text-stone-900 hover:border-stone-400 transition-colors text-sm">
+              <a href="#" className="flex items-center gap-2 px-3 py-2 bg-white dark:bg-stone-800 border border-stone-300 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-stone-100 hover:border-stone-400 dark:hover:border-stone-600 transition-colors text-sm">
                 <Mail size={16} />
                 <span>Email</span>
               </a>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-xl border border-stone-200">
-              <h4 className="font-bold text-stone-700 mb-4 text-sm uppercase tracking-wide">{content.techStack}</h4>
-              <ul className="space-y-2 text-sm text-stone-600">
+          <div className="bg-white dark:bg-stone-800 p-6 rounded-xl border border-stone-200 dark:border-stone-700">
+              <h4 className="font-bold text-stone-700 dark:text-stone-300 mb-4 text-sm uppercase tracking-wide">{content.techStack}</h4>
+              <ul className="space-y-2 text-sm text-stone-600 dark:text-stone-400">
                 <li className="flex items-center gap-2">
                   <span className="w-2 h-2 bg-blue-400 rounded-full"></span> React 18 & TypeScript
                 </li>

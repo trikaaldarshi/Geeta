@@ -146,12 +146,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 animate-fade-in">
-      <div className="flex justify-between items-center mb-8 border-b border-stone-200 pb-6">
+      <div className="flex justify-between items-center mb-8 border-b border-stone-200 dark:border-stone-800 pb-6">
         <div>
-          <h2 className="text-3xl font-serif font-bold text-stone-800">HR Dashboard</h2>
-          <p className="text-stone-500 mt-1">Manage and publish custom shloka translations.</p>
+          <h2 className="text-3xl font-serif font-bold text-stone-800 dark:text-stone-100">HR Dashboard</h2>
+          <p className="text-stone-500 dark:text-stone-400 mt-1">Manage and publish custom shloka translations.</p>
         </div>
-        <button onClick={onLogout} className="flex items-center gap-2 px-4 py-2 text-stone-600 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors border border-transparent hover:border-red-100">
+        <button onClick={onLogout} className="flex items-center gap-2 px-4 py-2 text-stone-600 dark:text-stone-300 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors border border-transparent hover:border-red-100 dark:hover:border-red-900/50">
           <LogOut size={20} /> Logout
         </button>
       </div>
@@ -159,13 +159,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
       <div className="grid lg:grid-cols-12 gap-8">
         {/* Sidebar / List Column */}
         <div className="lg:col-span-4 order-2 lg:order-1">
-          <div className="bg-white rounded-xl shadow-sm border border-stone-200 overflow-hidden h-fit sticky top-24">
-            <div className="p-4 bg-stone-50 border-b border-stone-200 flex justify-between items-center">
-              <h3 className="font-bold text-stone-800 flex items-center gap-2">
-                <FolderOpen size={18} className="text-amber-600" />
+          <div className="bg-white dark:bg-stone-900 rounded-xl shadow-sm border border-stone-200 dark:border-stone-800 overflow-hidden h-fit sticky top-24">
+            <div className="p-4 bg-stone-50 dark:bg-stone-800 border-b border-stone-200 dark:border-stone-700 flex justify-between items-center">
+              <h3 className="font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
+                <FolderOpen size={18} className="text-amber-600 dark:text-amber-500" />
                 Verse Library
               </h3>
-              <span className="text-xs bg-stone-200 text-stone-600 px-2 py-1 rounded-full">
+              <span className="text-xs bg-stone-200 dark:bg-stone-700 text-stone-600 dark:text-stone-300 px-2 py-1 rounded-full">
                 {Object.keys(storedVerses).length} verses
               </span>
             </div>
@@ -180,30 +180,30 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   <div key={chap.id} className="mb-1">
                     <div 
                       className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
-                        isExpanded ? 'bg-stone-100' : 'hover:bg-stone-50'
+                        isExpanded ? 'bg-stone-100 dark:bg-stone-800' : 'hover:bg-stone-50 dark:hover:bg-stone-800/50'
                       }`}
                       onClick={() => toggleChapter(chap.id)}
                     >
                       <div className="flex items-center gap-2 overflow-hidden">
                         {isExpanded ? <ChevronDown size={16} className="text-stone-400" /> : <ChevronRight size={16} className="text-stone-400" />}
                         {isExpanded ? <FolderOpen size={16} className="text-amber-500" /> : <Folder size={16} className="text-stone-400" />}
-                        <span className={`text-sm font-medium truncate ${hasVerses ? 'text-stone-800' : 'text-stone-400'}`}>
+                        <span className={`text-sm font-medium truncate ${hasVerses ? 'text-stone-800 dark:text-stone-200' : 'text-stone-400'}`}>
                           Ch {chap.id}: {chap.nameTranslation}
                         </span>
                       </div>
                       {count > 0 && (
-                        <span className="text-xs bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded ml-2">
+                        <span className="text-xs bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 px-1.5 py-0.5 rounded ml-2">
                           {count}
                         </span>
                       )}
                     </div>
 
                     {isExpanded && (
-                      <div className="ml-6 mt-1 space-y-1 border-l-2 border-stone-100 pl-2">
+                      <div className="ml-6 mt-1 space-y-1 border-l-2 border-stone-100 dark:border-stone-800 pl-2">
                         {/* Quick Add Button */}
                         <button 
                           onClick={(e) => { e.stopPropagation(); prepareNewVerseInChapter(chap.id); }}
-                          className="w-full text-left p-2 rounded-md text-xs font-medium text-amber-600 hover:bg-amber-50 flex items-center gap-1 transition-colors dashed-border"
+                          className="w-full text-left p-2 rounded-md text-xs font-medium text-amber-600 dark:text-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20 flex items-center gap-1 transition-colors dashed-border"
                         >
                           <Plus size={14} /> Add Verse to Ch {chap.id}
                         </button>
@@ -215,20 +215,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                               onClick={() => handleEdit(key)}
                               className={`group flex items-start justify-between p-2 rounded-md cursor-pointer border text-sm transition-all ${
                                 selectedKey === key 
-                                  ? 'bg-amber-50 border-amber-300 shadow-sm' 
-                                  : 'bg-white border-transparent hover:border-stone-200 hover:bg-stone-50'
+                                  ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-300 dark:border-amber-700 shadow-sm' 
+                                  : 'bg-white dark:bg-stone-900 border-transparent hover:border-stone-200 dark:hover:border-stone-700 hover:bg-stone-50 dark:hover:bg-stone-800'
                               }`}
                             >
                               <div className="flex items-center gap-2 overflow-hidden">
                                 <FileText size={14} className={selectedKey === key ? 'text-amber-500' : 'text-stone-400'} />
                                 <div className="truncate">
-                                  <span className="font-semibold text-stone-700">Verse {v}</span>
-                                  <p className="text-xs text-stone-500 truncate w-32">{content.translations.en.substring(0, 30)}...</p>
+                                  <span className="font-semibold text-stone-700 dark:text-stone-300">Verse {v}</span>
+                                  <p className="text-xs text-stone-500 dark:text-stone-400 truncate w-32">{content.translations.en.substring(0, 30)}...</p>
                                 </div>
                               </div>
                               <button 
                                 onClick={(e) => { e.stopPropagation(); handleDelete(key); }}
-                                className="opacity-0 group-hover:opacity-100 text-stone-400 hover:text-red-500 p-1 transition-opacity"
+                                className="opacity-0 group-hover:opacity-100 text-stone-400 hover:text-red-500 dark:hover:text-red-400 p-1 transition-opacity"
                                 title="Delete"
                               >
                                 <Trash2 size={14} />
@@ -249,40 +249,40 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
         {/* Editor Column */}
         <div className="lg:col-span-8 order-1 lg:order-2">
-          <div className="bg-white rounded-xl shadow-sm border border-stone-200 p-6 md:p-8">
-            <div className="flex justify-between items-center mb-6 border-b border-stone-100 pb-4">
+          <div className="bg-white dark:bg-stone-900 rounded-xl shadow-sm border border-stone-200 dark:border-stone-800 p-6 md:p-8">
+            <div className="flex justify-between items-center mb-6 border-b border-stone-100 dark:border-stone-800 pb-4">
               <div>
-                <h3 className="text-xl font-bold text-stone-800 flex items-center gap-2">
-                  {selectedKey ? <Edit3 size={20} className="text-amber-600" /> : <Plus size={20} className="text-green-600" />}
+                <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 flex items-center gap-2">
+                  {selectedKey ? <Edit3 size={20} className="text-amber-600 dark:text-amber-500" /> : <Plus size={20} className="text-green-600 dark:text-green-500" />}
                   {selectedKey ? 'Edit Verse' : 'Add New Verse'}
                 </h3>
-                <p className="text-sm text-stone-500 mt-1">
+                <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">
                   {selectedKey ? `Editing Chapter ${chapter}, Verse ${verse}` : 'Create a new translation entry'}
                 </p>
               </div>
               
               {selectedKey && (
-                <button onClick={resetForm} className="px-3 py-1.5 text-sm bg-stone-100 text-stone-600 rounded-md hover:bg-stone-200 transition-colors">
+                <button onClick={resetForm} className="px-3 py-1.5 text-sm bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 rounded-md hover:bg-stone-200 dark:hover:bg-stone-700 transition-colors">
                   Cancel & Create New
                 </button>
               )}
             </div>
 
             {successMsg && (
-              <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-lg flex items-center gap-2 border border-green-100 animate-fade-in">
+              <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-lg flex items-center gap-2 border border-green-100 dark:border-green-900/30 animate-fade-in">
                 <CheckCircle size={20} /> {successMsg}
               </div>
             )}
 
             <form onSubmit={handleSave} className="space-y-6">
               {/* Selection Row */}
-              <div className="bg-stone-50 p-4 rounded-lg border border-stone-200 grid grid-cols-2 gap-6">
+              <div className="bg-stone-50 dark:bg-stone-800 p-4 rounded-lg border border-stone-200 dark:border-stone-700 grid grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5">Chapter</label>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5">Chapter</label>
                   <select 
                     value={chapter} 
                     onChange={e => setChapter(Number(e.target.value))}
-                    className="w-full p-2.5 bg-white border border-stone-300 rounded-md shadow-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none"
+                    className="w-full p-2.5 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-md shadow-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none"
                   >
                     {CHAPTERS.map(c => (
                       <option key={c.id} value={c.id}>{c.id}. {c.name}</option>
@@ -290,13 +290,13 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5">Verse Number</label>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5">Verse Number</label>
                   <input 
                     type="number" 
                     min="1" 
                     value={verse} 
                     onChange={e => setVerse(Number(e.target.value))}
-                    className="w-full p-2.5 bg-white border border-stone-300 rounded-md shadow-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none"
+                    className="w-full p-2.5 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-md shadow-sm focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none"
                   />
                 </div>
               </div>
@@ -304,55 +304,55 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               {/* Sanskrit & Transliteration */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5 flex justify-between">
-                    Sanskrit Shloka <span className="text-stone-400 font-normal normal-case">Devanagari</span>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5 flex justify-between">
+                    Sanskrit Shloka <span className="text-stone-400 dark:text-stone-500 font-normal normal-case">Devanagari</span>
                   </label>
                   <textarea 
                     value={sanskrit} 
                     onChange={e => setSanskrit(e.target.value)}
                     rows={3}
-                    className="w-full p-3 bg-white border border-stone-300 rounded-lg font-serif text-lg leading-relaxed focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
+                    className="w-full p-3 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-lg font-serif text-lg leading-relaxed focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
                     placeholder="धर्मक्षेत्रे कुरुक्षेत्रे..."
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5 flex justify-between">
-                    English Transliteration <span className="text-stone-400 font-normal normal-case">IAST</span>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5 flex justify-between">
+                    English Transliteration <span className="text-stone-400 dark:text-stone-500 font-normal normal-case">IAST</span>
                   </label>
                   <textarea 
                     value={transliteration} 
                     onChange={e => setTransliteration(e.target.value)}
                     rows={2}
-                    className="w-full p-3 bg-white border border-stone-300 rounded-lg font-serif italic text-stone-600 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
+                    className="w-full p-3 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 rounded-lg font-serif italic text-stone-600 dark:text-stone-300 focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
                     placeholder="dharma-kṣetre kuru-kṣetre..."
                     required
                   />
                 </div>
               </div>
 
-              <div className="h-px bg-stone-200 my-2"></div>
+              <div className="h-px bg-stone-200 dark:bg-stone-700 my-2"></div>
 
               {/* Translations */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5">Translation (English)</label>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5">Translation (English)</label>
                   <textarea 
                     value={translationEn} 
                     onChange={e => setTranslationEn(e.target.value)}
                     rows={4}
-                    className="w-full p-3 bg-white border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
+                    className="w-full p-3 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5">Translation (Hindi)</label>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5">Translation (Hindi)</label>
                   <textarea 
                     value={translationHi} 
                     onChange={e => setTranslationHi(e.target.value)}
                     rows={4}
-                    className="w-full p-3 bg-white border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
+                    className="w-full p-3 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
                     required
                   />
                 </div>
@@ -361,22 +361,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
               {/* Meanings */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5">Meaning / Insight (English)</label>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5">Meaning / Insight (English)</label>
                   <textarea 
                     value={meaningEn} 
                     onChange={e => setMeaningEn(e.target.value)}
                     rows={4}
-                    className="w-full p-3 bg-white border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
+                    className="w-full p-3 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-stone-500 uppercase mb-1.5">Meaning / Insight (Hindi)</label>
+                  <label className="block text-xs font-bold text-stone-500 dark:text-stone-400 uppercase mb-1.5">Meaning / Insight (Hindi)</label>
                   <textarea 
                     value={meaningHi} 
                     onChange={e => setMeaningHi(e.target.value)}
                     rows={4}
-                    className="w-full p-3 bg-white border border-stone-300 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
+                    className="w-full p-3 bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 text-stone-900 dark:text-stone-100 rounded-lg focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-shadow"
                     required
                   />
                 </div>
@@ -384,7 +384,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
 
               <button
                 type="submit"
-                className="w-full bg-stone-900 text-white py-4 rounded-xl font-bold hover:bg-stone-800 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                className="w-full bg-stone-900 dark:bg-amber-600 text-white py-4 rounded-xl font-bold hover:bg-stone-800 dark:hover:bg-amber-700 transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
                 <Save size={20} /> 
                 {selectedKey ? 'Update Verse' : 'Publish New Verse'}

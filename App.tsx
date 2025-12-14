@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/HomePage';
 import { VerseReader } from './components/VerseReader';
@@ -9,7 +9,7 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { AboutPage } from './components/AboutPage';
 import { AiTermsPage } from './components/AiTermsPage';
 import { AuthorPage } from './components/AuthorPage';
-import { ViewState, Language } from './types';
+import { ViewState, Language, Theme } from './types';
 
 function App() {
   // Initialize state based on URL parameters for deep linking or Admin access
@@ -46,6 +46,26 @@ function App() {
   const [language, setLanguage] = useState<Language>('hi');
   const [targetVerse, setTargetVerse] = useState<{chapter: number, verse: number} | null>(initialState.target);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  
+  // Theme Management
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark' || saved === 'light') return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   const navigateToVerse = (chapter: number, verse: number) => {
     setTargetVerse({ chapter, verse });
@@ -61,12 +81,14 @@ function App() {
     : `© ${new Date().getFullYear()} Gita Wisdom. Built with React & Gemini AI.`;
 
   return (
-    <div className="min-h-screen bg-stone-50 text-stone-900 font-sans selection:bg-amber-200 selection:text-amber-900 flex flex-col">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 font-sans selection:bg-amber-200 selection:text-amber-900 flex flex-col transition-colors duration-300">
       <Navigation 
         currentView={currentView} 
         setView={setCurrentView} 
         language={language}
         setLanguage={setLanguage}
+        theme={theme}
+        setTheme={setTheme}
       />
       
       <main className="animate-fade-in flex-grow">
@@ -131,9 +153,9 @@ function App() {
         )}
       </main>
 
-      <footer className="bg-stone-900 text-stone-400 py-12 text-center mt-auto">
+      <footer className="bg-stone-900 dark:bg-black text-stone-400 py-12 text-center mt-auto border-t border-stone-800">
         <div className="max-w-7xl mx-auto px-4">
-          <p className="font-serif italic text-lg mb-4 text-stone-300">{footerText}</p>
+          <p className="font-serif italic text-lg mb-4 text-stone-300 dark:text-stone-500">{footerText}</p>
           <div className="flex flex-col items-center gap-4">
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <button 
@@ -154,7 +176,6 @@ function App() {
               >
                 {language === 'hi' ? 'एआई शर्तें' : 'AI Terms'}
               </button>
-              {/* Admin Login Link Removed for Security - Access via /admin URL only */}
             </div>
             <p className="text-sm opacity-60 mt-2">{footerCopyright}</p>
           </div>

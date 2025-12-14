@@ -50,8 +50,8 @@ export const SearchGita: React.FC<SearchGitaProps> = ({ onNavigateToVerse, langu
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 animate-fade-in">
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-serif text-stone-800 font-bold mb-4">{labels.title}</h2>
-        <p className="text-stone-600 max-w-lg mx-auto">
+        <h2 className="text-3xl font-serif text-stone-800 dark:text-stone-100 font-bold mb-4">{labels.title}</h2>
+        <p className="text-stone-600 dark:text-stone-400 max-w-lg mx-auto">
           {labels.subtitle}
         </p>
       </div>
@@ -63,12 +63,12 @@ export const SearchGita: React.FC<SearchGitaProps> = ({ onNavigateToVerse, langu
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={labels.placeholder}
-            className="w-full pl-6 pr-14 py-4 bg-white border border-stone-200 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 text-lg transition-all"
+            className="w-full pl-6 pr-14 py-4 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 dark:focus:border-amber-500 text-lg text-stone-900 dark:text-stone-100 transition-all placeholder:text-stone-400"
           />
           <button
             type="submit"
             disabled={isLoading || !query.trim()}
-            className="absolute right-2 top-2 p-2 bg-stone-900 text-white rounded-full hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="absolute right-2 top-2 p-2 bg-stone-900 dark:bg-amber-600 text-white rounded-full hover:bg-stone-800 dark:hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? <Loader2 size={24} className="animate-spin" /> : <Search size={24} />}
           </button>
@@ -81,26 +81,26 @@ export const SearchGita: React.FC<SearchGitaProps> = ({ onNavigateToVerse, langu
           <div
             key={`${result.chapter}-${result.verse}-${index}`}
             onClick={() => onNavigateToVerse(result.chapter, result.verse)}
-            className="bg-white p-6 rounded-xl border border-stone-200 hover:border-amber-400 hover:shadow-md cursor-pointer transition-all group animate-fade-in"
+            className="bg-white dark:bg-stone-900 p-6 rounded-xl border border-stone-200 dark:border-stone-800 hover:border-amber-400 dark:hover:border-amber-600 hover:shadow-md cursor-pointer transition-all group animate-fade-in"
             style={{ animationDelay: `${index * 50}ms` }}
           >
             <div className="flex justify-between items-start mb-3">
-              <span className="px-3 py-1 bg-amber-50 text-amber-700 text-xs font-bold rounded-full uppercase tracking-wider border border-amber-100">
+              <span className="px-3 py-1 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-xs font-bold rounded-full uppercase tracking-wider border border-amber-100 dark:border-amber-900/50">
                 {labels.chapter} {result.chapter}, {labels.verse} {result.verse}
               </span>
-              <ArrowRight size={18} className="text-stone-300 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" />
+              <ArrowRight size={18} className="text-stone-300 dark:text-stone-600 group-hover:text-amber-600 dark:group-hover:text-amber-500 group-hover:translate-x-1 transition-all" />
             </div>
-            <div className="font-serif text-stone-800 text-lg mb-2 leading-relaxed">
+            <div className="font-serif text-stone-800 dark:text-stone-100 text-lg mb-2 leading-relaxed">
               <FormattedText text={`"${result.translation}"`} />
             </div>
-            <div className="text-stone-500 font-serif italic text-sm">
+            <div className="text-stone-500 dark:text-stone-400 font-serif italic text-sm">
               <FormattedText text={result.sanskrit} />
             </div>
           </div>
         ))}
 
         {hasSearched && !isLoading && results.length === 0 && (
-          <div className="text-center text-stone-500 py-12">
+          <div className="text-center text-stone-500 dark:text-stone-400 py-12">
             <BookOpen size={48} className="mx-auto mb-4 opacity-20" />
             <p className="text-lg">{labels.noResults}</p>
             <p className="text-sm">{labels.tryAgain}</p>

@@ -33,60 +33,60 @@ export const AiTermsPage: React.FC<AiTermsPageProps> = ({ language }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-serif font-bold text-stone-800 mb-4">
+        <h2 className="text-4xl font-serif font-bold text-stone-800 dark:text-stone-100 mb-4">
           <FormattedText text={content.title} />
         </h2>
-        <div className="text-xl text-indigo-600 font-medium">
+        <div className="text-xl text-indigo-600 dark:text-indigo-400 font-medium">
           <FormattedText text={content.subtitle} />
         </div>
       </div>
 
       <div className="grid gap-8">
         {/* Technology Section */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-stone-200">
+        <div className="bg-white dark:bg-stone-900 p-8 rounded-2xl shadow-sm border border-stone-200 dark:border-stone-800">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-indigo-100 rounded-full text-indigo-600">
+            <div className="p-3 bg-indigo-100 dark:bg-indigo-900/30 rounded-full text-indigo-600 dark:text-indigo-400">
               <Cpu size={24} />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-stone-800">
+            <h3 className="text-2xl font-serif font-bold text-stone-800 dark:text-stone-100">
               <FormattedText text={content.howItWorksTitle} />
             </h3>
           </div>
-          <div className="text-stone-600 leading-relaxed text-lg mb-4">
+          <div className="text-stone-600 dark:text-stone-300 leading-relaxed text-lg mb-4">
             <FormattedText text={content.howItWorksText} />
           </div>
-          <div className="flex items-center gap-2 text-sm text-stone-500 bg-stone-50 p-3 rounded-lg w-fit">
+          <div className="flex items-center gap-2 text-sm text-stone-500 dark:text-stone-400 bg-stone-50 dark:bg-stone-800 p-3 rounded-lg w-fit">
             <Sparkles size={16} className="text-amber-500" />
             <span>Powered by Google Gemini 2.5 Flash</span>
           </div>
         </div>
 
         {/* Disclaimer Section */}
-        <div className="bg-amber-50 p-8 rounded-2xl border border-amber-100">
+        <div className="bg-amber-50 dark:bg-amber-900/10 p-8 rounded-2xl border border-amber-100 dark:border-amber-900/30">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-amber-100 rounded-full text-amber-700">
+            <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-full text-amber-700 dark:text-amber-500">
               <AlertTriangle size={24} />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-amber-900">
+            <h3 className="text-2xl font-serif font-bold text-amber-900 dark:text-amber-400">
               <FormattedText text={content.disclaimerTitle} />
             </h3>
           </div>
-          <div className="text-amber-900/80 leading-relaxed font-medium">
+          <div className="text-amber-900/80 dark:text-amber-200/80 leading-relaxed font-medium">
             <FormattedText text={content.disclaimerText} />
           </div>
         </div>
 
         {/* Privacy Section */}
-        <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200">
+        <div className="bg-stone-50 dark:bg-stone-900 p-8 rounded-2xl border border-stone-200 dark:border-stone-800">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-stone-200 rounded-full text-stone-600">
+            <div className="p-3 bg-stone-200 dark:bg-stone-800 rounded-full text-stone-600 dark:text-stone-400">
               <Shield size={24} />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-stone-800">
+            <h3 className="text-2xl font-serif font-bold text-stone-800 dark:text-stone-100">
               <FormattedText text={content.privacyTitle} />
             </h3>
           </div>
-          <div className="text-stone-600 leading-relaxed">
+          <div className="text-stone-600 dark:text-stone-300 leading-relaxed">
             <FormattedText text={content.privacyText} />
           </div>
         </div>

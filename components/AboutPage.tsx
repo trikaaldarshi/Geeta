@@ -23,32 +23,32 @@ export const AboutPage: React.FC<AboutPageProps> = ({ language }) => {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 animate-fade-in">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-serif font-bold text-stone-800 mb-4">
+        <h2 className="text-4xl font-serif font-bold text-stone-800 dark:text-stone-100 mb-4">
           <FormattedText text={content.title} />
         </h2>
-        <div className="text-xl text-amber-600 font-medium">
+        <div className="text-xl text-amber-600 dark:text-amber-500 font-medium">
           <FormattedText text={content.subtitle} />
         </div>
       </div>
 
       <div className="grid gap-8">
         {/* Mission Section */}
-        <div className="bg-white p-8 rounded-2xl shadow-sm border border-stone-200">
+        <div className="bg-white dark:bg-stone-900 p-8 rounded-2xl shadow-sm border border-stone-200 dark:border-stone-800">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-amber-100 rounded-full text-amber-600">
+            <div className="p-3 bg-amber-100 dark:bg-amber-900/30 rounded-full text-amber-600 dark:text-amber-500">
               <Info size={24} />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-stone-800">
+            <h3 className="text-2xl font-serif font-bold text-stone-800 dark:text-stone-100">
               <FormattedText text={content.missionTitle} />
             </h3>
           </div>
-          <div className="text-stone-600 leading-relaxed text-lg">
+          <div className="text-stone-600 dark:text-stone-300 leading-relaxed text-lg">
             <FormattedText text={content.missionText} />
           </div>
         </div>
       </div>
       
-      <div className="text-center mt-12 text-stone-400 text-sm">
+      <div className="text-center mt-12 text-stone-400 dark:text-stone-600 text-sm">
         <p>Version 1.0.0 • © {new Date().getFullYear()} Gita Wisdom</p>
       </div>
     </div>

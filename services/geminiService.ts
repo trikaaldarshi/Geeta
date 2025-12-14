@@ -1,9 +1,30 @@
-import { GoogleGenAI, Type, Schema } from "@google/genai";
+import { GoogleGenAI, Type, Schema, HarmCategory, HarmBlockThreshold, GenerateContentResponse } from "@google/genai";
 import { VerseData, SearchResult, Language } from "../types";
 import { getLocalVerse } from "../localVerses";
 import { getStoredVerse, searchStoredVerses } from "./storageService";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+
+// Configure safety settings to allow religious/historical war context (Kurukshetra)
+// This prevents the model from blocking verses describing battle, weapons, or death.
+const safetySettings = [
+  {
+    category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+  {
+    category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+    threshold: HarmBlockThreshold.BLOCK_NONE,
+  },
+];
 
 const verseSchema: Schema = {
   type: Type.OBJECT,
@@ -29,6 +50,23 @@ const searchSchema: Schema = {
     required: ["chapter", "verse", "sanskrit", "translation"],
   },
 };
+
+// Retry helper for API calls
+async function withRetry<T>(operation: () => Promise<T>, retries = 3, delay = 1000): Promise<T> {
+  try {
+    return await operation();
+  } catch (error: any) {
+    // Check for rate limit (429) or temporary server errors (503)
+    const isTransient = error?.status === 429 || error?.status === 503 || 
+                        (error?.message && (error.message.includes('429') || error.message.includes('503')));
+    
+    if (retries > 0 && isTransient) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return withRetry(operation, retries - 1, delay * 2);
+    }
+    throw error;
+  }
+}
 
 export const fetchVerse = async (chapter: number, verse: number, language: Language): Promise<VerseData> => {
   // 1. Check Admin/Storage verses first (User overrides)
@@ -59,20 +97,24 @@ export const fetchVerse = async (chapter: number, verse: number, language: Langu
     const langRequest = language === 'hi' ? "Hindi" : "English";
     const prompt = `Provide the Sanskrit text, English transliteration, ${langRequest} translation, and a brief ${langRequest} meaning for Bhagavad Gita Chapter ${chapter}, Verse ${verse}. Ensure accuracy to the traditional text.`;
 
-    const response = await ai.models.generateContent({
-      model,
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: verseSchema,
-        temperature: 0.3, 
-      },
+    return await withRetry(async () => {
+      const response = await ai.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: verseSchema,
+          temperature: 0.3, 
+          safetySettings: safetySettings,
+        },
+      });
+
+      if (response.text) {
+        return JSON.parse(response.text) as VerseData;
+      }
+      throw new Error("Empty response from AI");
     });
 
-    if (response.text) {
-      return JSON.parse(response.text) as VerseData;
-    }
-    throw new Error("Empty response from AI");
   } catch (error) {
     console.error("Error fetching verse:", error);
     throw error;
@@ -94,14 +136,17 @@ export const searchVerses = async (query: string, language: Language): Promise<S
     const langRequest = language === 'hi' ? "Hindi" : "English";
     const prompt = `Find up to 10 most relevant verses from the Bhagavad Gita for the query: "${query}". Return the chapter number, verse number, original sanskrit text, and ${langRequest} translation for each result.`;
 
-    const response = await ai.models.generateContent({
-      model,
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: searchSchema,
-        temperature: 0.3, 
-      },
+    const response = await withRetry(async () => {
+      return await ai.models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: searchSchema,
+          temperature: 0.3,
+          safetySettings: safetySettings, 
+        },
+      });
     });
 
     let apiResults: SearchResult[] = [];
@@ -155,11 +200,12 @@ export const fetchChatResponse = async (history: { role: string; parts: { text: 
       model: "gemini-2.5-flash",
       config: {
         systemInstruction: langContext,
+        safetySettings: safetySettings,
       },
       history: history,
     });
 
-    const result = await chat.sendMessage({ message: newMessage });
+    const result = await withRetry<GenerateContentResponse>(() => chat.sendMessage({ message: newMessage }));
     return result.text;
   } catch (error) {
     console.error("Error in chat:", error);
