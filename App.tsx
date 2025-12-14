@@ -12,9 +12,19 @@ import { AuthorPage } from './components/AuthorPage';
 import { ViewState, Language } from './types';
 
 function App() {
-  // Initialize state based on URL parameters for deep linking
+  // Initialize state based on URL parameters for deep linking or Admin access
   const getInitialState = () => {
+    const path = window.location.pathname.replace(/\/$/, ''); // Remove trailing slash
     const params = new URLSearchParams(window.location.search);
+    
+    // Check for Admin URL access (e.g. /admin or ?view=admin)
+    if (path.endsWith('/admin') || params.get('view') === 'admin') {
+      return {
+        view: 'login' as ViewState,
+        target: null
+      };
+    }
+
     const chapter = params.get('chapter');
     const verse = params.get('verse');
     
@@ -144,12 +154,7 @@ function App() {
               >
                 {language === 'hi' ? 'एआई शर्तें' : 'AI Terms'}
               </button>
-              <button 
-                onClick={() => setCurrentView('login')}
-                className="hover:text-amber-500 transition-colors"
-              >
-                {language === 'hi' ? 'व्यवस्थापक लॉगिन' : 'Admin Login'}
-              </button>
+              {/* Admin Login Link Removed for Security - Access via /admin URL only */}
             </div>
             <p className="text-sm opacity-60 mt-2">{footerCopyright}</p>
           </div>
