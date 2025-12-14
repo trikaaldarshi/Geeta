@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, User, Sparkles, Loader2 } from 'lucide-react';
 import { fetchChatResponse } from '../services/geminiService';
 import { ChatMessage, Language } from '../types';
+import { FormattedText } from './FormattedText';
 
 interface AskGitaProps {
   language: Language;
@@ -124,7 +125,7 @@ export const AskGita: React.FC<AskGitaProps> = ({ language }) => {
                     ? 'bg-stone-800 text-stone-50 rounded-tr-none' 
                     : 'bg-white text-stone-800 border border-stone-200 rounded-tl-none shadow-sm'
                 } ${msg.isError ? 'border-red-300 bg-red-50 text-red-800' : ''}`}>
-                  {msg.text}
+                  <FormattedText text={msg.text} />
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Share2, Copy, Loader2, Book, Check } from 'l
 import { CHAPTERS } from '../constants';
 import { fetchVerse } from '../services/geminiService';
 import { VerseData, Language } from '../types';
+import { FormattedText } from './FormattedText';
 
 interface VerseReaderProps {
   initialChapterId?: number;
@@ -190,12 +191,12 @@ export const VerseReader: React.FC<VerseReaderProps> = ({ initialChapterId = 1, 
           <div className="space-y-8 animate-fade-in">
             {/* Sanskrit Card */}
             <div className="bg-amber-50 rounded-2xl p-8 md:p-12 text-center shadow-inner border border-amber-100">
-              <p className="text-3xl md:text-4xl font-serif text-stone-800 leading-relaxed mb-6 font-medium">
-                {verseData.sanskrit}
-              </p>
-              <p className="text-stone-600 font-serif italic text-lg">
-                {verseData.transliteration}
-              </p>
+              <div className="text-3xl md:text-4xl font-serif text-stone-800 leading-relaxed mb-6 font-medium">
+                <FormattedText text={verseData.sanskrit} />
+              </div>
+              <div className="text-stone-600 font-serif italic text-lg">
+                <FormattedText text={verseData.transliteration} />
+              </div>
             </div>
 
             {/* Translation & Meaning */}
@@ -204,18 +205,18 @@ export const VerseReader: React.FC<VerseReaderProps> = ({ initialChapterId = 1, 
                 <h3 className="text-sm font-bold text-amber-600 uppercase tracking-widest mb-4 flex items-center gap-2">
                   <Book size={16} /> {labels.translation}
                 </h3>
-                <p className="text-xl md:text-2xl text-stone-800 font-serif leading-relaxed">
-                  "{verseData.translation}"
-                </p>
+                <div className="text-xl md:text-2xl text-stone-800 font-serif leading-relaxed">
+                  <FormattedText text={verseData.translation} />
+                </div>
               </div>
 
               <div className="bg-gradient-to-br from-white to-stone-50 p-8 rounded-2xl shadow-sm border border-stone-200">
                  <h3 className="text-sm font-bold text-indigo-600 uppercase tracking-widest mb-4 flex items-center gap-2">
                    {labels.insight}
                  </h3>
-                 <p className="text-stone-700 leading-loose text-lg">
-                   {verseData.meaning}
-                 </p>
+                 <div className="text-stone-700 leading-loose text-lg">
+                   <FormattedText text={verseData.meaning} />
+                 </div>
               </div>
             </div>
             

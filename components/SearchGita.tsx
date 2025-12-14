@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, Loader2, BookOpen, ArrowRight } from 'lucide-react';
 import { searchVerses } from '../services/geminiService';
 import { SearchResult, Language } from '../types';
+import { FormattedText } from './FormattedText';
 
 interface SearchGitaProps {
   onNavigateToVerse: (chapter: number, verse: number) => void;
@@ -89,12 +90,12 @@ export const SearchGita: React.FC<SearchGitaProps> = ({ onNavigateToVerse, langu
               </span>
               <ArrowRight size={18} className="text-stone-300 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" />
             </div>
-            <p className="font-serif text-stone-800 text-lg mb-2 leading-relaxed">
-              "{result.translation}"
-            </p>
-            <p className="text-stone-500 font-serif italic text-sm">
-              {result.sanskrit}
-            </p>
+            <div className="font-serif text-stone-800 text-lg mb-2 leading-relaxed">
+              <FormattedText text={`"${result.translation}"`} />
+            </div>
+            <div className="text-stone-500 font-serif italic text-sm">
+              <FormattedText text={result.sanskrit} />
+            </div>
           </div>
         ))}
 

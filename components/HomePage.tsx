@@ -2,6 +2,7 @@ import React from 'react';
 import { BookOpen, ArrowRight, MessageCircle } from 'lucide-react';
 import { CHAPTERS } from '../constants';
 import { ViewState, Language } from '../types';
+import { FormattedText } from './FormattedText';
 
 interface HomePageProps {
   setView: (view: ViewState) => void;
@@ -14,8 +15,8 @@ export const HomePage: React.FC<HomePageProps> = ({ setView, setChapter, languag
     titlePrefix: language === 'hi' ? 'शाश्वत ज्ञान में' : 'Find Peace in',
     titleSuffix: language === 'hi' ? 'शांति पाएं' : 'Eternal Wisdom',
     description: language === 'hi' 
-      ? 'आधुनिक अनुवाद और एआई-संचालित अंतर्दृष्टि के साथ भगवद गीता के परिवर्तनकारी श्लोकों का अन्वेषण करें। अपनी आंतरिक शांति का मार्ग खोजें।'
-      : "Explore the Bhagavad Gita's transformative verses with modern translations and AI-powered insights. Discover your path to inner peace.",
+      ? 'आधुनिक अनुवाद और **एआई-संचालित अंतर्दृष्टि** के साथ भगवद गीता के परिवर्तनकारी श्लोकों का अन्वेषण करें। अपनी आंतरिक शांति का मार्ग खोजें।'
+      : "Explore the Bhagavad Gita's transformative verses with modern translations and **AI-powered insights**. Discover your path to inner peace.",
     readBtn: language === 'hi' ? 'पढ़ना शुरू करें' : 'Start Reading',
     askBtn: language === 'hi' ? 'कृष्ण से पूछें' : 'Ask Krishna',
     chaptersTitle: language === 'hi' ? 'अध्याय' : 'Chapters',
@@ -29,11 +30,11 @@ export const HomePage: React.FC<HomePageProps> = ({ setView, setChapter, languag
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-amber-200/20 rounded-full blur-3xl -z-10" />
         
         <h1 className="text-5xl md:text-7xl font-serif font-bold text-stone-900 mb-6 tracking-tight">
-          {content.titlePrefix} <br/> <span className="text-amber-600">{content.titleSuffix}</span>
+          <FormattedText text={content.titlePrefix} /> <br/> <span className="text-amber-600"><FormattedText text={content.titleSuffix} /></span>
         </h1>
-        <p className="max-w-2xl mx-auto text-xl text-stone-600 mb-10 leading-relaxed font-light">
-          {content.description}
-        </p>
+        <div className="max-w-2xl mx-auto text-xl text-stone-600 mb-10 leading-relaxed font-light">
+          <FormattedText text={content.description} />
+        </div>
         
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <button 
